@@ -15,7 +15,7 @@ function agregarNota(e) {
      
      const botonBorrar = document.createElement('a');
      botonBorrar.classList = 'borrar-nota';
-     botonBorrar.innerText = 'X';
+     botonBorrar.innerText = ' X';
 
      const li = document.createElement('li');
      li.innerText = nota;

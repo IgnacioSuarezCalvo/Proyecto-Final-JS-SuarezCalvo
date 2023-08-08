@@ -8,6 +8,7 @@
 body{
     height: 100vh;
     background: #dbb077;
+    
 }
 .container{
     width: 40%;
@@ -91,3 +92,49 @@ body{
     width: 40px;
     border-radius: 5px;
 }
+
+.alineacionNav{
+    position: relative;
+    text-align: center;
+    
+}
+
+.nav {
+    position: relative;
+    list-style: none;
+    background: #92a6e9;
+    color: #ffffff;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 1rem;
+  }
+
+  .nav li {
+    font-size: 0.8rem;
+    display: inline-block;
+    position: relative;
+    padding: 15px 20px;
+    cursor: pointer;
+    z-index: 4;
+    transition: 0.3s;
+    min-width: 120px;
+  }
+  .textNav:hover{
+      background: #dbb077 !important;
+      border-radius: 1rem;
+  }
+  
+
+  
+  .nav li:nth-child(3):hover ul div {
+    transform: translate(0, 0);
+  }
+  
+  /* styling page */
+  * {
+    box-sizing: border-box;
+  }
+  
