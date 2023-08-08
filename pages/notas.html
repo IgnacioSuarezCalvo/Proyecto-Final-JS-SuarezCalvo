@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../css/estilos.css">
+    <title>Tus Notas</title>
+</head>
+<body>    
+<div id="contenido" class="container">
+
+        
+        <div class="row" id="newtask">
+            <h2>Notes</h2>
+            <br>
+            <form action="#" id="formulario">
+                <button id="push">Agregar notas</button>
+                <input type="text" id="nota" placeholder="Escribir aca....">
+                
+            </form>
+            <br>
+            <div>
+                <h2>Mis Notas</h2>
+                <br>
+                <button type="button" onclick="javascript:location.href='../pages/notas.html'">Recargar ventana</button>
+                <div id="lista-notas"></div>
+                
+            </div>
+            <br>
+            <br>
+        </div>
+</div>
+
+
+<!--    <div id="contenido" class="container">
+        <div id="newtask">
+            <input type="text" placeholder="Escribir aca....">
+            <button id="push">Agregar notas</button>
+        </div>
+        <div id="tasks"></div>
+    </div>-->
+
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
