@@ -1,9 +1,64 @@
+class createUser {
+     constructor (usr) {
+         this.id = usr.id
+         this.user = usr.user;
+         this.mail = usr.mail;
+         this.pass = usr.pass;
+     }    
+ }
+
+
 const listaNotas = document.getElementById('lista-notas');
 const form = document.getElementById('form');
 const username = document.getElementById('username');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
+
+const btnLog = document.querySelector('#log-btn');
+
+if(btnLog) {btnLog.addEventListener('click', logIn)};
+
+async function getUsers() {
+     const resp = await fetch('../data/datos.json');
+     const userFile = await resp.json() || [];
+     const userLocal = await JSON.parse(localStorage.getItem('users')) || [];
+     return users = userLocal.length > 0 ? userLocal : userFile;
+ }
+
+ async function logIn(e){
+     e.preventDefault();
+     if(e.target.id == 'log-btn'){
+         const enteredUser = document.querySelector('#login #log-user').value;
+         const users = await getUsers();
+         const userIdx = users.findIndex(user => user.user == enteredUser)
+         if(userIdx != -1){
+             const enteredPass = document.querySelector('#login #log-pass').value;
+             if(enteredPass === users[userIdx].pass){
+                 Swal.fire(
+                     '¡Bienvenido!',
+                     enteredUser,
+                     'success'
+                     ).then(() => location.href = '../pages/notas.html')
+             } else {
+                 Swal.fire({
+                     icon: 'error',
+                     title: 'Oops...',
+                     text: 'Usuario o contraseña incorrectos',
+                     footer: '<a href="../pages/registro.html">Registrarse</a>'
+                   })
+             }
+         } else {
+             Swal.fire({
+                 icon: 'error',
+                 title: 'Oops...',
+                 text: 'Usuario o contraseña incorrectos',
+                 footer: '<a href="../pages/registro.html">Registrarse</a>'
+               })
+         }
+     }
+ }
+
 
 
 //----------------------------------------------------------//
