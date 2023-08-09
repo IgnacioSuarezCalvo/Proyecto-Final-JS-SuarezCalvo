@@ -48,7 +48,7 @@ body{
     float: right;
     font-weight: 500;
     font-size: 16px;
-    background-color: #92a6e9;
+    background-color: #725480;
     border: none;
     color: #ffffff;
     cursor: pointer;
@@ -84,8 +84,8 @@ body{
     font-weight: 400;
 }
 .task button{
-    background-color: #92a6e9;
-    color: #92a6e9;
+    background-color: #725480;
+    color: #725480;
     border: none;
     cursor: pointer;
     outline: none;
@@ -192,8 +192,8 @@ body{
   }
 
   .form button{
-    background-color: #8e44ad;
-    border: 2px solid #8e44ad;
+    background-color: #725480;
+    border: 2px solid #725480;
     border-radius: 4px;
     color: #fff;
     display: block;
