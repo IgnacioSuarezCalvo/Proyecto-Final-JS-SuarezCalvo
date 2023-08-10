@@ -216,3 +216,9 @@ body{
   }
 
 
+  .IndexIngresar{
+    position: relative;
+    text-align: center;
+    padding: 5px;
+  }
+

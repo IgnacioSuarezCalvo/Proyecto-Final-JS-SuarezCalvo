@@ -11,13 +11,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
-
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous" defer></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10" ></script>
     
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
-    
-    <script src="./js/main.js" defer ></script>
+    <script src="./js/main.js" defer></script>
     <link rel="stylesheet" href="./css/estilos.css">
     
     <link rel="manifest" href="/site.webmanifest">
@@ -27,20 +24,22 @@
 <body>
 
     <div class="container">
-        <form id="login" class="form">
+        <form id="loginForm" class="form">
             <div class="form-control">
-                <label for="log-user">Username</label>
-                <input type="text" placeholder="Ingresa tu usuario" id="log-user">
+                <label>Mail</label>
+                <input type="email" placeholder="Ingresa tu mail" id="loginFormEmail" required autofocus>
             </div>
 
             <div class="form-control">
-                <label for="log-pass">Password</label>
-                <input type="password" placeholder="" id="log-pass">
+                <label>Password</label>
+                <input type="password" placeholder="" required>
             </div>
+            <div class="IndexIngresar">
+                <input type="submit" value="Ingresar" >
+            </div>
+            <p class="IndexIngresar" ><a href="./pages/registro.html">No tenes una cuenta?</a></p>
 
-            <h4 class="fs-5"><a href="./pages/registro.html">No tenes una cuenta?</a></h4>
-
-            <button id="log-btn" ><a href="./pages/notas.html"></a>Ingresar</button>
+            
         </form>
     </div>
 

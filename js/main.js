@@ -1,124 +1,29 @@
-class createUser {
-     constructor (usr) {
-         this.id = usr.id
-         this.user = usr.user;
-         this.mail = usr.mail;
-         this.pass = usr.pass;
-     }    
- }
+const signupForm = document.querySelector('#signupForm')
+const loginForm = document.querySelector('loginForm')
+signupForm.addEventListener('submit',(e)=>{
+     e.preventDefault()
+     const name = document.querySelector('#name').value
+     const email = document.querySelector('#email').value
+     const password = document.querySelector('#password').value
 
-
-const listaNotas = document.getElementById('lista-notas');
-const form = document.getElementById('form');
-const username = document.getElementById('username');
-const email = document.getElementById('email');
-const password = document.getElementById('password');
-const password2 = document.getElementById('password2');
-
-const btnLog = document.querySelector('#log-btn');
-
-if(btnLog) {btnLog.addEventListener('click', logIn)};
-
-async function getUsers() {
-     const resp = await fetch('../data/datos.json');
-     const userFile = await resp.json() || [];
-     const userLocal = await JSON.parse(localStorage.getItem('users')) || [];
-     return users = userLocal.length > 0 ? userLocal : userFile;
- }
-
- async function logIn(e){
-     e.preventDefault();
-     if(e.target.id == 'log-btn'){
-         const enteredUser = document.querySelector('#login #log-user').value;
-         const users = await getUsers();
-         const userIdx = users.findIndex(user => user.user == enteredUser)
-         if(userIdx != -1){
-             const enteredPass = document.querySelector('#login #log-pass').value;
-             if(enteredPass === users[userIdx].pass){
-                 Swal.fire(
-                     '¡Bienvenido!',
-                     enteredUser,
-                     'success'
-                     ).then(() => location.href = '../pages/notas.html')
-             } else {
-                 Swal.fire({
-                     icon: 'error',
-                     title: 'Oops...',
-                     text: 'Usuario o contraseña incorrectos',
-                     footer: '<a href="../pages/registro.html">Registrarse</a>'
-                   })
-             }
-         } else {
-             Swal.fire({
-                 icon: 'error',
-                 title: 'Oops...',
-                 text: 'Usuario o contraseña incorrectos',
-                 footer: '<a href="../pages/registro.html">Registrarse</a>'
-               })
-         }
+     const Users = JSON.parse(localStorage.getItem('users')) || []
+     const isUserRegistered = Users.find(user => user.mail === email)
+     if(isUserRegistered){
+        return Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ya esta registrado',
+          })
      }
- }
-
-
-
-//----------------------------------------------------------//
-
-form.addEventListener('submit' , e =>{
-     e.preventDefault();
-
-     checkInputs();
-});
-
-function checkInputs(){
-     const usernameValue = username.value.trim();
-     const emailValue = email.value.trim();
-     const passwordValue = password.value.trim();
-     const password2Value = password2.value.trim();
-
-     if(username === ''){
-          setErrorFor(username, 'Completar');
-     }else {
-               setSuccessFor(username);
-          }
-
-     if(emailname === ''){
-          setErrorFor(email, 'El Email tiene que completarse');
-     } else if (!isEmail(emailValue)) {
-          serErrorFor(email, 'No es valido este email');
-     } else{
-          setSuccessFor(username);
-     }
-       
-     if(passwordValue === ''){
-          setErrorFor(password, 'Completar');
-     }else{
-          setSuccessFor(password);
-     }
-
-     if(password2Value === ''){
-          setErrorFor(password2, 'Completar');
-     } else if(passwordValue !== password2Value){
-          setErrorFor(password2, 'No son iguales');
-     } else{
-          setSuccessFor(password2);
-     }
-}
-
-function setErrorFor(input, message){
-     const formControl = input.parentElement;
-     const small = formControl.querySelector('small');
-     formControl.className = 'form-control error';
-     small.innerText = message;
-}
-
-function setSuccessFor(input){
-     const formControl = input.parentElement;
-     formControl.className = 'form-control success'
-}
-
-function isEmail(email){
-     return email.test(email);
-}
+     Users.push({name: name, email: email, password: password})
+     localStorage.setItem('users', JSON.stringify(Users))
+     Swal.fire({
+        icon: 'success',
+        title: 'Felicitaciones',
+        text: 'Ya estas registrados',
+      })
+      window.location.href = '../index.html'
+})
 
 
 //----------------------------------------------------------//
