@@ -1,4 +1,5 @@
 const listaNotas = document.getElementById('lista-notas');
+
 eventListeners();
 
 function eventListeners() {
@@ -92,3 +93,4 @@ function borrarNotaLocalStorage(nota) {
 
      localStorage.setItem('notas', JSON.stringify(notas)); 
     }
+

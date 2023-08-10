@@ -1,71 +1,90 @@
-const signupForm = document.querySelector('#signupForm')
-const loginForm = document.querySelector('#loginForm')
-const logout = document.querySelector('#logout')
+class createUser {
+    constructor (usr) {
+        this.id = usr.id
+        this.user = usr.user;
+        this.mail = usr.mail;
+        this.pass = usr.pass;
+    }    
+}    
+
+const btnLog = document.querySelector('#sig-btn');
+const btnReg = document.querySelector('#reg-btn');
+
+if(btnLog) {btnLog.addEventListener('click', logIn)};
+if(btnReg) {btnReg.addEventListener('click', register)};
 
 
-signupForm.addEventListener('submit',(e)=>{
-     e.preventDefault()
-     const name = document.querySelector('#name').value
-     const email = document.querySelector('#email').value
-     const password = document.querySelector('#password').value
 
-     const Users = JSON.parse(localStorage.getItem('users')) || []
-     const isUserRegistered = Users.find(user => user.mail === email)
-     if(isUserRegistered){
-        return Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!',
-          timer: 1000,
-        })
-     }
-     Users.push({name: name, email: email, password: password})
-     localStorage.setItem('users', JSON.stringify(Users))
-     Swal.fire({
-        icon: 'success',
-        title: 'Felicitaciones',
-        text: 'Ya estas registrados',
-        timer: 1500,
-      })
-      window.location.href = './index.html'
-})
-
-loginForm.addEventListener('submit', (e)=>{
-     e.preventDefault()
-     const Users = JSON.parse(localStorage.getItem('users')) || []
-     const validUser = Users.find(user => user.mail === email && user.password === password)
-     if(!validUser){
-          return Swal.fire({
-               icon: 'error',
-               title: 'Oops...',
-               text: 'Something went wrong!',
-               timer: 1500,
-             })
-     }
-     Swal.fire({
-          icon: 'success',
-          title: 'Felicitaciones',
-          text: 'Bienvenido',
-          timer: 1000,
-        })
-     localStorage.setItem('login_success', JSON.stringify(validUser))
-     window.location.href = './notas.html'
-})   
-
-const user = JSON.parse(localStorage.getItem('login_success')) || false
-if(!user){
-     window.location.href = './index.html'
+async function getUsers() {
+    const resp = await fetch('../datos/datos.json');
+    const userFile = await resp.json() || [];
+    const userLocal = await JSON.parse(localStorage.getItem('users')) || [];
+    return users = userLocal.length > 0 ? userLocal : userFile;
 }
 
-logout.addEventListener('click', ()=>{
-     Swal.fire({
-          icon: 'success',
-          title: 'Hasta Pronto',
-          text: 'Gracias!',
-          timer: 1000,
-        })
-     localStorage.removeItem('login_success')
-     window.location.href = './index.html'
-})
 
-//----------------------------------------------------------//
+async function logIn(e){
+    e.preventDefault();
+    if(e.target.id == 'sig-btn'){
+        const enteredUser = document.querySelector('#signup #sig-user').value;
+        const users = await getUsers();
+        const userIdx = users.findIndex(user => user.user == enteredUser)
+        if(userIdx != -1){
+            const enteredPass = document.querySelector('#signup #sig-pass').value;
+            if(enteredPass === users[userIdx].pass){
+                Swal.fire(
+                    '¡Bienvenido!',
+                    enteredUser,
+                    'success'
+                    ).then(() => location.href = './notas.html')
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Usuario o contraseña incorrectos',
+                  })
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Usuario o contraseña incorrectos',
+              })
+        }
+        
+    }
+}
+
+/* --------------------------- registro de usuario -------------------------- */
+async function register(e){
+    e.preventDefault();
+    if(e.target.id == 'reg-btn'){
+        const enteredUser = document.querySelector('#register #reg-user').value;
+        const users = await getUsers();
+        const userIdx = users.findIndex(user => user.user == enteredUser)
+        if(userIdx === -1){
+            const enteredPass = document.querySelector('#register #reg-pass').value;
+            const enteredMail = document.querySelector('#register #reg-email').value;
+            const maxId = users.reduce((users,usr)=> users = users > usr.id ? users: usr.id,0 )
+            Swal.fire(
+                '¡Bienvenido!',
+                enteredUser,
+                'success'
+                ).then(() => location.href = 'index.html')
+            const newUser = {
+                id: maxId + 1,
+                user: enteredUser,
+                mail: enteredMail,
+                pass: enteredPass
+            }
+            users.push(new createUser(newUser));
+            localStorage.setItem('users', JSON.stringify(users));
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Usuario ya existente'
+              })
+        }
+    }
+}
